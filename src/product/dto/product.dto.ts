@@ -3,3 +3,8 @@ export interface ProductDto {
   amount: number;
   price: number;
 }
+
+export interface UpdateProductDto {
+  amount?: number;
+  price?: number;
+}
