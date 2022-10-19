@@ -1,36 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { ProductDto } from './dto/product.dto';
+import { ProductDto, UpdateProductDto } from './dto/product.dto';
 import { PrismaService } from 'src/prisma.service';
-import { Category as CategoryModel } from '@prisma/client';
+import { Product } from '@prisma/client';
 
 @Injectable()
 export class ProductService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getAllCategoryProducts(id: string): Promise<CategoryModel> {
-    return this.prismaService.category.findUnique({
-      where: {
-        id: +id,
-      },
-      include: {
-        products: true,
+  async addProductToWarehouse(id: string, product: ProductDto): Promise<any> {
+    return await this.prismaService.product.create({
+      data: {
+        ...product,
+        warehouseId: +id,
       },
     });
   }
 
-  async addProduct(id: string, product: ProductDto) {
-    const newProduct = await this.prismaService.product.create({
-      data: {
-        name: product.name,
-        amount: product.amount,
-        price: product.price,
-        categoryId: +id,
+  async getAllProductsByWarehouse(id: string): Promise<Product[]> {
+    return this.prismaService.product.findMany({
+      where: {
+        warehouseId: +id,
       },
     });
-    const oldVer = await this.prismaService.category.findUnique({
-      where: { id: +id },
-      include: {
-        products: true,
+  }
+
+  async updateProductInfo(
+    id: string,
+    product: UpdateProductDto,
+  ): Promise<Product> {
+    // now it rewrites, but it should add or substract some amount
+    return this.prismaService.product.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        ...product,
       },
     });
   }

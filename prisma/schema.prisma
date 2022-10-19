@@ -13,12 +13,6 @@ datasource db {
 model Warehouse {
   id Int @id @default(autoincrement())
   name String @unique
-}
-
-model Category {
-  id Int @id @default(autoincrement())
-  name String @unique
-  warehouseId Int
   products Product[]
 }
 
@@ -27,8 +21,8 @@ model Product {
   name String @unique
   amount Int
   price Float
-  categoryId Int
-  category Category @relation(fields: [categoryId], references: [id])
+  warehouseId Int
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id])
 }
 
 
