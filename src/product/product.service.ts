@@ -28,13 +28,14 @@ export class ProductService {
     id: string,
     product: UpdateProductDto,
   ): Promise<Product> {
-    // now it rewrites, but it should add or substract some amount
     return this.prismaService.product.update({
       where: {
         id: +id,
       },
       data: {
-        ...product,
+        amount: {
+          increment: product.amount,
+        },
       },
     });
   }
