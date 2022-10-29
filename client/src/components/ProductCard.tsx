@@ -1,6 +1,8 @@
-export function ProductCard() {
+import { Product } from '../types/product';
 
+export function ProductCard({ product }: {product: Product}) {
+  const { amount, name, id} = product;
   return (
-    <div> Single Product Card</div>
+    <li id={id.toString()}>{`${name} ${amount}`}</li>
   )
 }
