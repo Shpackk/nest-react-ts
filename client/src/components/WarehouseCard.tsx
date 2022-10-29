@@ -1,14 +1,9 @@
+import { WarehouseCardProps } from '../types/product';
 
-type Props = {
-  warehouse: {
-    id: number;
-    name: string;
-  }
-}
+export function WarehouseCard(props: WarehouseCardProps) {
+  const {
+    warehouse: { id, name },
+  } = props;
 
-export function WarehouseCard(props: Props) {
-  const { warehouse: {id, name} } = props
-  return (
-      <li id={id.toString()}>{name}</li>
-  )
+  return <li id={id.toString()}>{name}</li>;
 }
