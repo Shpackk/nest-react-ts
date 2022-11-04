@@ -1,12 +1,11 @@
-import { BackButton } from './BackButton';
+import { BackButton } from './molecule/BackButton';
+import './NoProducts.css';
 
 export function NoProducts() {
   return (
     <>
       <BackButton />
-      <ul>
-        <li>No Products</li>
-      </ul>
+      <div className='no-products-div'>No Products</div>
     </>
   );
 }
