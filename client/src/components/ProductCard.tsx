@@ -2,7 +2,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { ListItem, IconButton, ListItemText } from '@mui/material';
 import { useState } from 'react';
 import { Product } from '../types/product';
-import { AddProductModal } from './AddProductModal';
+import { AddProductModal } from './AddProductModal/AddProductModal';
 
 export function ProductCard({ product }: { product: Product }) {
   const [isOpen, setIsOpen] = useState(false)
