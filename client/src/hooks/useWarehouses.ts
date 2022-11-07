@@ -13,7 +13,7 @@ export function useWarehouses() {
     fetch('http://localhost:3001/warehouse/')
     .then(response => response.json())
     .then(data => setWarehouses(data))
-  })
+  }, [])
 
   return warehouses
 }
