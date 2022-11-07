@@ -34,7 +34,7 @@ export class ProductService {
       },
       data: {
         amount: {
-          increment: product.amount,
+          increment: +product.amount,
         },
       },
     });

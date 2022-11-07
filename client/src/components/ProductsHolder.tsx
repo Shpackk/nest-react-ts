@@ -24,7 +24,7 @@ export function ProductsHolder() {
       <BackButton />
       <List sx={{ width: '100%', maxWidth: 500 }}>
         {products.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard product={product} key={`${product.name}`}/>
         ))}
       </List>
     </>

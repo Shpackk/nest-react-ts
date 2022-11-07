@@ -5,6 +5,6 @@ export interface ProductDto {
 }
 
 export interface UpdateProductDto {
-  amount?: number;
-  price?: number;
+  amount?: string;
+  price?: string;
 }

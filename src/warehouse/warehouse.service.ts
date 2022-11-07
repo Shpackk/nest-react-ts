@@ -27,6 +27,9 @@ export class WarehouseService {
         id: true,
         name: true,
         products: {
+          orderBy: {
+            updatedAt: 'desc',
+          },
           select: {
             id: true,
             name: true,
