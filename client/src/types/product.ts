@@ -3,6 +3,7 @@ type Product = {
   name: string;
   amount: number;
   price: number;
+  productState: () => void;
 };
 
 type WarehouseCardProps = {
