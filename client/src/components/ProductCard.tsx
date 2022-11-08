@@ -8,6 +8,7 @@ export function ProductCard({ product }: { product: Product }) {
   const [isOpen, setIsOpen] = useState(false)
   const { amount, name, id } = product;
 
+
   const handleModalOpen = () => {
     setIsOpen(!isOpen)
   }
