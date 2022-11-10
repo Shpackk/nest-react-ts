@@ -18,6 +18,15 @@ export class WarehouseService {
     });
   }
 
+  async deleteWarehouse(name: string): Promise<Warehouse> {
+    console.log(name);
+    return this.prismaService.warehouse.delete({
+      where: {
+        name: name,
+      },
+    });
+  }
+
   async getWarehouseAndProducts(id: string): Promise<Warehouse> {
     return this.prismaService.warehouse.findFirst({
       where: {
