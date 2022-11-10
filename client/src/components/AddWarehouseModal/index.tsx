@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 
 export function AddWarehouseModal({ props }: any) {
-  const { isOpen, handleModalOpen, modalMethod } = props;
+  const { isOpen, handleModalClose, modalMethod } = props;
   const [userInput, setUserInput] = useState('');
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +21,9 @@ export function AddWarehouseModal({ props }: any) {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
-      .then((data) => data);
-    handleModalOpen();
+      .then((response) => {
+        if (response.status === 201) handleModalClose()
+      })
   };
 
   return (
@@ -40,7 +40,7 @@ export function AddWarehouseModal({ props }: any) {
         </Button>
         <Button
           variant='outlined'
-          onClick={handleModalOpen}
+          onClick={handleModalClose}
           startIcon={<CloseIcon color='error' />}
         >
           Close

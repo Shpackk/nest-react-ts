@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 
 export function AddProductModal({ props }: any) {
-  const { isOpen, handleModalOpen, productId } = props;
+  const { isModalOpen, productToUpdate, handleModalClose } = props;
   const [isBadInput, setIsBadInput] = useState(false);
   const [userInput, setUserInput] = useState('');
 
@@ -20,20 +20,20 @@ export function AddProductModal({ props }: any) {
   };
 
   const handleClick = () => {
-    fetch(`http://localhost:3001/products/${productId}`, {
+    fetch(`http://localhost:3001/products/${productToUpdate}`, {
       method: 'PATCH',
       body: JSON.stringify({ amount: userInput }),
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
-      .then((data) => data.updatedAt);
-    handleModalOpen();
+      .then((response) => {
+        if(response.status === 200) handleModalClose()
+      })
   };
 
   return (
-    <Modal open={isOpen} slots={{ backdrop: Backdrop }}>
+    <Modal open={isModalOpen} slots={{ backdrop: Backdrop }}>
       <Box sx={style}>
         <input onChange={handleOnChange}></input>
         <Button
@@ -46,7 +46,7 @@ export function AddProductModal({ props }: any) {
         </Button>
         <Button
           variant='outlined'
-          onClick={handleClick}
+          onClick={handleModalClose}
           startIcon={<CloseIcon color='error' />}
         >
           Close

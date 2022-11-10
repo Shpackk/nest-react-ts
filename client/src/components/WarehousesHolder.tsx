@@ -1,5 +1,4 @@
 import { WarehouseCard } from './WarehouseCard';
-import { useWarehouses } from '../hooks/useWarehouses';
 import { Link } from 'react-router-dom';
 import './WarehouseHolder.css';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -14,20 +13,38 @@ enum ModalMethod {
   DELETE = 'DELETE',
 }
 
+type Warehouse = {
+  id: number;
+  name: string;
+}
+
+
 export function WarehousesHolder() {
-  const warehouses = useWarehouses();
   const [isOpen, setIsOpen] = useState(false);
   const [modalMethod, setModalMethod] = useState('');
+  const [warehouses, setWarehouses] = useState<Warehouse[]>([])
 
   const handleModalOpen = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(true);
   };
 
-  useEffect(() => {}, []);
+  const handleModalClose = () => {
+    fetch('http://localhost:3001/warehouse/')
+    .then(response => response.json())
+    .then(data => setWarehouses(data))
+    setIsOpen(false)
+  }
+
+  useEffect(() => {
+    fetch('http://localhost:3001/warehouse/')
+    .then(response => response.json())
+    .then(data => setWarehouses(data))
+  }, [])
+
 
   return (
     <div className='warehouse-holder'>
-      <AddWarehouseModal props={{ handleModalOpen, isOpen, modalMethod }} />
+      <AddWarehouseModal props={{ handleModalClose, isOpen, modalMethod }} />
       <List
         key={`${Date.now().toString()}-list`}
         sx={{ width: '100%', maxWidth: '100vw', position: 'fixed', padding: 0, top: 0, overflowX: 'scroll', maxHeight: '90vh'}}

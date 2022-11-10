@@ -1,25 +1,20 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { ListItem, IconButton, ListItemText } from '@mui/material';
-import { useState } from 'react';
-import { Product } from '../types/product';
-import { AddProductModal } from './AddProductModal/AddProductModal';
 
-export function ProductCard({ product }: { product: Product }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const { amount, name, id } = product;
+export function ProductCard(props: any) {
+  const { amount, name, id } = props.product;
 
-
-  const handleModalOpen = () => {
-    setIsOpen(!isOpen)
+  const handleOnClick = () => {
+    props.setProductToUpdate(id)
+    props.handleModalOpen()
   }
 
   return (
     <>
-    <AddProductModal props={{isOpen, handleModalOpen, productId: id}}/>
       <ListItem
         key={id}
         secondaryAction={
-          <IconButton aria-label='comment' onClick={handleModalOpen}>
+          <IconButton aria-label='comment' onClick={handleOnClick}>
             <AddCircleIcon></AddCircleIcon>
           </IconButton>
         }
